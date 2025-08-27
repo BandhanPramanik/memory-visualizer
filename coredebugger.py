@@ -1,5 +1,4 @@
 from pygdbmi.gdbcontroller import GdbController
-from pprint import pprint
 import shlex
 
 
@@ -21,16 +20,17 @@ class Debugger:
 
     def exec_debug(self, command, argg=None):
         command_repo = {
-            "load": lambda argg: self.gdbmi.write(f"-file-exec-and-symbols {shlex.quote(argg)}"),
+            "break main": lambda argg=None: self.gdbmi.write("b main"),
             "breakpoint": lambda argg: self.gdbmi.write(f"-break-insert {self.safe_num(argg)}"),
-            "run": lambda argg=None: self.gdbmi.write("-exec-run"),
-            "break main": lambda argg=None: self.gdbmi.write(f"b main"),
-            "next": lambda argg=None: self.gdbmi.write("-exec-step"),
+            "eval": lambda argg: self.gdbmi.write(f"-data-evaluate-expression {shlex.quote(argg)}"),
+            "exit": lambda argg=None: self.gdbmi.write("-gdb-exit"),
+            "load": lambda argg: self.gdbmi.write(f"-file-exec-and-symbols {shlex.quote(argg)}"),
             "list-frames": lambda argg=None: self.gdbmi.write("-stack-list-frames"),
             "list-variables": lambda argg=None: self.gdbmi.write("-stack-list-variables --all-values"),
+            "next": lambda argg=None: self.gdbmi.write("-exec-step"),
             "read-memory": lambda argg: self.gdbmi.write(f"-data-read-memory-bytes {shlex.quote(argg[0])} {self.safe_num(argg[1])}"),
-            "eval": lambda argg: self.gdbmi.write(f"-data-evaluate-expression {shlex.quote(argg)}"),
-            "exit": lambda argg=None: self.gdbmi.write("-gdb-exit")
+            "run": lambda argg=None: self.gdbmi.write("-exec-run"),
+            "set-tty": lambda argg: self.gdbmi.write(f'set inferior-tty {argg}')
         }
         if command not in command_repo:
             raise ValueError(f"Unknown command: {command}")

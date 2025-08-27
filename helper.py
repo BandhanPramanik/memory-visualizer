@@ -50,8 +50,9 @@ class HelperDebugger(Debugger):
                     heap[address] = memory_contents[0].get('contents')
         return heap
 
-
+    # The most important function here
     def _treat_response(self, response):
+        # Wait loop
         while not any(msg.get('message') == 'stopped' for msg in response):
             try:
                 # ...actively wait for more messages from GDB.
@@ -62,8 +63,14 @@ class HelperDebugger(Debugger):
                 response.extend(new_messages)
             except Exception:
                 return {"error": "GDB process ended unexpectedly."}
+        # First, check if the program has exited.
+        for msg in response:
+            if msg.get('message') == 'stopped':
+                reason = msg.get('payload', {}).get('reason')
+                if reason == 'exited-normally':
+                    return {"status": "Done."} # Signal the end
 
-        # Get the frame info directly from the response
+        # To get the line no. and file
         frame = self._parse_frame_from_response(response)
         if not frame:
             return {"error": "Program did not stop at breakpoint."}
@@ -76,7 +83,7 @@ class HelperDebugger(Debugger):
             "line": frame.get('line'),
             "file": frame.get('file'),
             "stack": variables,
-            "heap": heap
+            "heap": heap,
         }
 
 
@@ -142,5 +149,14 @@ class HelperDebugger(Debugger):
         return self._treat_response(response)
 
 
+
 dbg2 = HelperDebugger("./a.out", "byteshow.c")
-print(dbg2.run_to_end())
+print(dbg2.start_debugging())
+while True:
+    response = dbg2.step_over()
+    print(response)
+    # Add this check to stop the loop! ✅
+    if response.get("status") == "Done.":
+        break
+
+print("\nExecution finished gracefully.")
