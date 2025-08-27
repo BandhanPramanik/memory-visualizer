@@ -117,6 +117,42 @@
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
                     <!-- Empty space for future content or visualization -->
+                     <div class="max-w-4xl mx-auto mt-8">
+  <!-- Code Box -->
+  <pre class="bg-gray-900 text-green-200 p-4 rounded-lg font-mono">
+int main() {
+  <span class="bg-yellow-300 text-black px-1">int *ptr = NULL;</span>
+  return 0;
+}
+  </pre>
+
+  <!-- Buttons -->
+  <div class="flex gap-2 mt-4">
+    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Run</button>
+    <button class="px-4 py-2 bg-green-500 text-white rounded-lg">Step</button>
+    <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Reset</button>
+  </div>
+
+  <!-- Visualization -->
+  <div class="mt-6 p-4 bg-gray-100 rounded-lg border">
+    <h3 class="font-bold mb-2">Memory Visualization</h3>
+    <div class="flex gap-8">
+      <!-- Stack -->
+      <div>
+        <h4 class="underline">Stack</h4>
+        <div class="border p-2 rounded bg-white">main()</div>
+        <div class="border p-2 rounded bg-white">ptr → 0x7fff</div>
+      </div>
+      <!-- Heap -->
+      <div>
+        <h4 class="underline">Heap</h4>
+        <div class="border p-2 rounded bg-white">0x7fff : 42</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
                 </div>
             </div>
 
