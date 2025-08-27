@@ -142,9 +142,5 @@ class HelperDebugger(Debugger):
         return self._treat_response(response)
 
 
-
-
-
-
 dbg2 = HelperDebugger("./a.out", "byteshow.c")
 print(dbg2.run_to_end())
