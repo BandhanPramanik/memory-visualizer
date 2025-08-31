@@ -1,4 +1,4 @@
-from coredebugger import Debugger
+from .coredebugger import Debugger
 
 class HelperDebugger(Debugger):
     def __init__(self, filename, source_file):
@@ -82,6 +82,7 @@ class HelperDebugger(Debugger):
         return {
             "line": frame.get('line'),
             "file": frame.get('file'),
+            "frame_name": frame.get('func'),
             "stack": variables,
             "heap": heap,
         }
@@ -150,13 +151,3 @@ class HelperDebugger(Debugger):
 
 
 
-dbg2 = HelperDebugger("./a.out", "byteshow.c")
-print(dbg2.start_debugging())
-while True:
-    response = dbg2.step_over()
-    print(response)
-    # Add this check to stop the loop! ✅
-    if response.get("status") == "Done.":
-        break
-
-print("\nExecution finished gracefully.")

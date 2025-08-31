@@ -14,6 +14,14 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+
+		/* By default, the debugger view is hidden */
+        .debugger-view { display: none; }
+        /* When the main panel gets the 'session-active' class... */
+        .panel.session-active .start-view { display: none; } /* ...hide the start view... */
+        .panel.session-active .debugger-view { display: block; } /* ...and show the debugger view. */
+
+
         .content-block {
             transition: all 0.3s ease;
         }
@@ -125,31 +133,39 @@ int main() {
   return 0;
 }
   </pre>
+  <div id="app-container" class="panel">
 
+  <div class="start-view">
+    <button data-program="byteshow" class="px-4 py-2 gap-2 mt-4 w-full bg-green-500 text-white rounded-lg">Start</button>
+  </div>
+	<div class="debugger-view">
   <!-- Buttons -->
-  <div class="flex gap-2 mt-4">
-    <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">Run</button>
-    <button class="px-4 py-2 bg-green-500 text-white rounded-lg">Step</button>
-    <button class="px-4 py-2 bg-red-500 text-white rounded-lg">Reset</button>
+  <div class="controls flex gap-2 mt-4">
+    <button class="run-to-end-btn px-4 py-2 bg-blue-500 text-white rounded-lg">Run to End</button>
+    <button class="step-btn px-4 py-2 bg-green-500 text-white rounded-lg">Step Over</button>
+	<button class="stop-btn px-4 py-2 bg-red-500 text-white rounded-lg">Stop</button>
+    <button class="reset-btn px-4 py-2 bg-teal-500 text-white rounded-lg">Reset</button>
   </div>
 
   <!-- Visualization -->
-  <div class="mt-6 p-4 bg-gray-100 rounded-lg border">
+  <div class="memory-container mt-6 p-4 bg-gray-100 rounded-lg border">
     <h3 class="font-bold mb-2">Memory Visualization</h3>
     <div class="flex gap-8">
       <!-- Stack -->
-      <div>
+      <div class="stack-table">
         <h4 class="underline">Stack</h4>
         <div class="border p-2 rounded bg-white">main()</div>
         <div class="border p-2 rounded bg-white">ptr → 0x7fff</div>
       </div>
       <!-- Heap -->
-      <div>
+      <div class = "heap-table">
         <h4 class="underline">Heap</h4>
         <div class="border p-2 rounded bg-white">0x7fff : 42</div>
       </div>
     </div>
   </div>
+  </div>
+  </div> <!-- App container-->
 </div>
 
 
@@ -308,5 +324,6 @@ int main() {
             </div>
         </div>
 	  <script src="https://cdn.tailwindcss.com"></script>
+	  <script src="/static/js/script.js"></script>
     </body>
 </html>
