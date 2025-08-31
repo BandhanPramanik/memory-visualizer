@@ -12,8 +12,9 @@ document.querySelectorAll('.start-view button').forEach(btn => {
 document.querySelector('.step-btn').addEventListener('click', () => sendCommand('/step'));
 document.querySelector('.run-to-end-btn').addEventListener('click', () => sendCommand('/run_to_end'));
 document.querySelector('.stop-btn').addEventListener('click', () => sendCommand('/stop'));
-// The "Reset" button will act like a "Stop" button in this design
-document.querySelector('.reset-btn').addEventListener('click', () => sendCommand('/stop'));
+document.querySelector('.reset-btn').addEventListener('click', async () => {
+    await sendCommand('/stop'); document.querySelector('.start-view button').click();
+});
 
 
 // --- Core Functions ---
@@ -29,9 +30,9 @@ async function startDebugging(programName) {
         alert(`Error: ${initialState.error}`);
         return;
     }
-    
+
     currentSessionId = initialState.session_id;
-	currentSourceCode = initialState.source_code;
+    currentSourceCode = initialState.source_code;
     appContainer.classList.add('session-active');
     updateUI(initialState);
 }
@@ -47,7 +48,9 @@ async function sendCommand(endpoint) {
     const data = await response.json();
 
     if (data.error) {
-        alert(`Error: ${data.error}`);
+        showError(data.error);
+        appContainer.classList.remove('session-active');
+        currentSessionId = null;
     } else if (data.status === "Done." || endpoint === '/stop') {
         alert(data.message || "Execution finished.");
         appContainer.classList.remove('session-active');
@@ -57,11 +60,16 @@ async function sendCommand(endpoint) {
     }
 }
 
+function showError(message) {
+    document.getElementById('error-message').textContent = message;
+    document.getElementById('error-message').style.display = 'block';
+}
+
 // This is the SIMPLER version of updateUI for our single-pane design
 function updateUI(state) {
-    const codeView = document.querySelector('.debugger-view .font-mono');
+    const codeView = document.querySelector('.code-box');
     codeView.innerHTML = '';
-    
+
     // THE FIX: Use the saved 'currentSourceCode' instead of 'state.source_code'
     currentSourceCode.forEach((line, index) => {
         const lineSpan = document.createElement('span');
@@ -84,8 +92,7 @@ function updateUI(state) {
     state.stack.forEach(v => { 
         stackHtml += `<div class="border p-2 rounded bg-white text-black">${v.name} → ${v.value}</div>`; 
     });
-    stackTable.innerHTML = stackHtml;
-    
+    stackTable.innerHTML = stackHtml;    
     // Update the Heap Table
     const heapTable = document.querySelector('.heap-table');
     let heapHtml = '<h4 class="underline">Heap</h4>';
