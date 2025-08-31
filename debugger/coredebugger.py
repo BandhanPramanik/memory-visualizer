@@ -23,7 +23,7 @@ class Debugger:
             "break main": lambda argg=None: self.gdbmi.write("b main"),
             "breakpoint": lambda argg: self.gdbmi.write(f"-break-insert {self.safe_num(argg)}"),
             "eval": lambda argg: self.gdbmi.write(f"-data-evaluate-expression {shlex.quote(argg)}"),
-            "exit": lambda argg=None: self.gdbmi.write("-gdb-exit"),
+            "exit": lambda argg=None: self.gdbmi.write("-gdb-exit", read_response=False),
             "load": lambda argg: self.gdbmi.write(f"-file-exec-and-symbols {shlex.quote(argg)}"),
             "list-frames": lambda argg=None: self.gdbmi.write("-stack-list-frames"),
             "list-variables": lambda argg=None: self.gdbmi.write("-stack-list-variables --all-values"),

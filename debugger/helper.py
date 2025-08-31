@@ -5,6 +5,7 @@ class HelperDebugger(Debugger):
         super().__init__(filename)
         self.source_file = source_file
 
+
     def _parse_frame_from_response(self, response):
         """
         Finds the 'stopped' message in a GDB response and returns the frame details.
@@ -86,6 +87,10 @@ class HelperDebugger(Debugger):
             "stack": variables,
             "heap": heap,
         }
+
+
+    def stop_debugging(self):
+        self.exec_debug("exit")
 
 
     def start_debugging(self):
