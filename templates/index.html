@@ -124,13 +124,28 @@
                     </div>
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <!-- Empty space for future content or visualization -->
+                    
                      <div class="max-w-4xl mx-auto mt-8">
   <!-- Code Box -->
   <pre class="code-box bg-gray-900 text-green-200 p-4 rounded-lg font-mono">
-int main() {
-  <span class="bg-yellow-300 text-black px-1">int *ptr = NULL;</span>
-  return 0;
+#include <stdio.h>
+
+int main(void)
+{
+    unsigned int num = 0x12345678;
+    char* c = (char*) &num;
+    int lilendian = (*c == 0x78) ? 1 : 0;
+    unsigned int b;
+    for (int i = 0; i < 4; i++)
+    {
+        b = (num & (0x000000FF << (8 * i))) >> (8 * i);
+        printf("Byte %d", i + 1);
+        if (lilendian && i == 0 || !lilendian && i == 3)
+            printf(" (LSB)");
+        if (lilendian && i == 3 || !lilendian && i == 0)
+            printf(" (MSB)");
+        printf(": 0x%x\n", b);
+    }
 }
   </pre>
   <div id="app-container" class="panel">
@@ -175,7 +190,8 @@ int main() {
 
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <!-- Empty space for future content or visualization -->
+                    
+					<img src="https://www.nilebits.com/wp-content/uploads/2024/06/Stack-vs.-Heap-in-C-What-Every-Developer-Should-Know.png" alt="Diagram of Stack vs Heap Memory">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
                     <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Memory Layout: Stack vs Heap</h2>
@@ -215,13 +231,15 @@ int main() {
                     </div>
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <!-- Empty space for future content or visualization -->
+                    
+					<img src="https://baoqger.github.io/images/stack_frames.png" alt="Distinguishing Call stack and Stack Frames">
                 </div>
             </div>
 
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <!-- Empty space for future content or visualization -->
+                    
+					<img src="https://www.log2base2.com/images/c/pass-pointer-argument-to-function.png" alt="Passing pointer to function as argument in C">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
                     <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Why Arrays are Stored in Heap for Function Calls</h2>
@@ -261,13 +279,15 @@ int main() {
                     </div>
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <!-- Empty space for future content or visualization -->
+                    
+					<img src="https://swiftunboxed.com/images/alignment-padding-bytes.png" alt="A bool type variable occupied 8 bits of space, 0x00-0x08, and then 0x16-0x24.">
                 </div>
             </div>
 
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <!-- Empty space for future content or visualization -->
+                    
+				<img src="https://static.learnmeabitcoin.com/diagrams/png/bytes-little-endian.png" alt="Understanding Little and Big Endian based on eggs">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
                     <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Endianness: Big vs Little Endian</h2>
@@ -320,7 +340,8 @@ int main() {
                     </div>
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <!-- Empty space for future content or visualization -->
+                    
+					<img src="https://courses.grainger.illinois.edu/cs225/fa2022/assets/notes/stack_heap_memory/memory_layout.png" alt="Diagram showing Stack and heap growing in opposite directions (stack downwards, towards lower addresses) and heap upwards">
                 </div>
             </div>
         </div>
