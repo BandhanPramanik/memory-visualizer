@@ -6,7 +6,9 @@ Clone this repo, then run this command (make sure that you have Python installed
 
 `$ pip install -r requirements.txt`
 
-then, run:
+[If you face any problems while installing packages using Python, search with the name of your OS/Distro and the error. For example, in Ubuntu-based distros, using pipx instead of pip is sufficient for our use case.]
+
+Then, run:
 
 `$ flask run`
 
