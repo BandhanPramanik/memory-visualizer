@@ -1,5 +1,19 @@
 # [Link to the newer demo video](https://www.reddit.com/r/developersIndia/comments/1n6w0ao/for_a_hackathon_made_a_c_debugger_frontend_in_an/)
 
+## How to use this project
+
+Clone this repo, then run this command (make sure that you have Python installed):
+
+`$ pip install -r requirements.txt`
+
+then, run:
+
+`$ flask run`
+
+Go to the link it redirects towards.
+
+That's it :)
+
 ## Inspiration
 
 We wanted to help newcomers to C understand how pointers work, since it’s a concept that many people find confusing.
