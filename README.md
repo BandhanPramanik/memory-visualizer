@@ -2,7 +2,7 @@
 
 ## How to run this project
 
-Please download GDB beforehand. Methods may vary, so I'm not including that.
+Please install GDB beforehand. Methods may vary, so I'm not including that.
 
 Clone this repo, then run this command (make sure that you have Python installed):
 
