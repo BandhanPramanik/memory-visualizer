@@ -1,4 +1,4 @@
-# [Link to the demo video (sorry for the noise)](https://youtu.be/IRVq-9JQJ9s)
+# [Link to the newer demo video](https://www.reddit.com/r/developersIndia/comments/1n6w0ao/for_a_hackathon_made_a_c_debugger_frontend_in_an/)
 
 ## Inspiration
 
