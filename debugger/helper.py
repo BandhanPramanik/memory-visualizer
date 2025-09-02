@@ -151,8 +151,6 @@ class HelperDebugger(Debugger):
         if end_line == -1:
             return {"error": "Could not find the end of the main function."}
         self.exec_debug("breakpoint", str(end_line))
-        response = self.exec_debug("run")
+        response = self.exec_debug("continue")
         return self._treat_response(response)
-
-
 

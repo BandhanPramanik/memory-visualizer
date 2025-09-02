@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
         <style>
         body {
-            background: linear-gradient(to left, #3b82f6, #ffffff, #f97316);
+            background: linear-gradient(to left, #62a0ea, #62a0ea, #ffffff, #eb7656, #eb7656);
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -92,7 +92,7 @@
 
             <!-- First section (left aligned) -->
             <div class="mb-16">
-                <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">What are Pointers?</h2>
+                <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">What are Pointers?</h2>
                 <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                     <p class="mb-4">A pointer is a variable that stores the memory address of another variable. Think of it like a house address that tells you where to find a specific house on a street.</p>
 
@@ -107,7 +107,7 @@
             <!-- Zigzag pattern starts here -->
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Null Pointer Dereferencing and Defensive Programming</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Null Pointer Dereferencing and Defensive Programming</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">What is Null Pointer Dereferencing?</p>
                         <p class="mb-4">A null pointer points to address 0x00000000, which is an invalid memory location. Dereferencing it (trying to access the value it points to) causes a segmentation fault.</p>
@@ -128,23 +128,27 @@
                      <div class="max-w-4xl mx-auto mt-8">
   <!-- Code Box -->
   <pre class="code-box bg-gray-900 text-green-200 p-4 rounded-lg font-mono">
-#include <stdio.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
 
 int main(void)
 {
-    unsigned int num = 0x12345678;
+    uint32_t num = 0x12345678;
     char* c = (char*) &num;
     int lilendian = (*c == 0x78) ? 1 : 0;
-    unsigned int b;
+    uint32_t b;
+	char output[200];
+	int len = 0;
+	// The snprintf logic is not that important here...
     for (int i = 0; i < 4; i++)
     {
         b = (num & (0x000000FF << (8 * i))) >> (8 * i);
-        printf("Byte %d", i + 1);
+        len += snprintf(output + len, sizeof(output) - len, "Byte %d", i + 1);
         if (lilendian && i == 0 || !lilendian && i == 3)
-            printf(" (LSB)");
+            len += snprintf(output + len, sizeof(output) - len, " (LSB)");
         if (lilendian && i == 3 || !lilendian && i == 0)
-            printf(" (MSB)");
-        printf(": 0x%x\n", b);
+            len += snprintf(output + len, sizeof(output) - len, " (MSB)");
+        len += snprintf(output + len, sizeof(output) - len, ": 0x%x\n", b);
     }
 }
   </pre>
@@ -163,21 +167,18 @@ int main(void)
   </div>
 
   <!-- Visualization -->
-  <div class="memory-container mt-6 p-4 bg-gray-100 rounded-lg border">
+  <div class="memory-container mt-6 p-4 bg-gray-100 rounded-lg border w-full max-w-6xl mx-auto flex-col">
     <h3 class="font-bold mb-2">Memory Visualization</h3>
-    <div class="flex gap-8">
+    <div class="flex gap-8 overflow-x-auto">
       <!-- Stack -->
-      <div class="stack-table">
+      <div class="stack-table flex flex-col flex-1 min-w-0 max-w-full">
         <h4 class="underline">Stack</h4>
-        <div class="border p-2 rounded bg-white">main()</div>
-        <div class="border p-2 rounded bg-white">ptr → 0x7fff</div>
       </div>
       <!-- Heap -->
-      <div class = "heap-table">
+      <div class = "heap-table flex flex-col flex-1 min-w-0 max-w-full">
         <h4 class="underline">Heap</h4>
-        <div class="border p-2 rounded bg-white">0x7fff : 42</div>
       </div>
-    </div>
+	</div>
   </div>
   </div>
   </div> <!-- App container-->
@@ -194,7 +195,7 @@ int main(void)
 					<img src="https://www.nilebits.com/wp-content/uploads/2024/06/Stack-vs.-Heap-in-C-What-Every-Developer-Should-Know.png" alt="Diagram of Stack vs Heap Memory">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Memory Layout: Stack vs Heap</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Memory Layout: Stack vs Heap</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">The Stack:</p>
                         <p class="mb-4">A fast, organized memory region that grows and shrinks automatically. Local variables and function parameters live here. It's like a stack of plates - last in, first out (LIFO).</p>
@@ -214,7 +215,7 @@ int main(void)
 
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Stack Frames Explained</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Stack Frames Explained</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">What are Stack Frames?</p>
                         <p class="mb-4">Each function call creates a "frame" on the stack containing local variables, parameters, and return addresses. When a function ends, its frame is removed (popped) from the stack.</p>
@@ -242,7 +243,7 @@ int main(void)
 					<img src="https://www.log2base2.com/images/c/pass-pointer-argument-to-function.png" alt="Passing pointer to function as argument in C">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Why Arrays are Stored in Heap for Function Calls</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Why Arrays are Stored in Heap for Function Calls</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">The Problem with Stack Arrays:</p>
                         <p class="mb-4">Stack has limited space (usually a few MB). Large arrays can cause stack overflow. Also, stack variables are automatically destroyed when functions return.</p>
@@ -262,7 +263,7 @@ int main(void)
 
             <div class="entire-row flex flex-col md:flex-row mb-16">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Memory Alignment: Understanding 0x12345678</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Memory Alignment: Understanding 0x12345678</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">What is Memory Alignment?</p>
                         <p class="mb-4">Modern processors read memory in chunks (usually 4 or 8 bytes). Aligned addresses are multiples of these chunk sizes.</p>
@@ -290,7 +291,7 @@ int main(void)
 				<img src="https://static.learnmeabitcoin.com/diagrams/png/bytes-little-endian.png" alt="Understanding Little and Big Endian based on eggs">
                 </div>
                 <div class="right-stuff md:w-1/2 md:pl-4">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Endianness: Big vs Little Endian</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Endianness: Big vs Little Endian</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">What is Endianness?</p>
                         <p class="mb-4">The order in which bytes of multi-byte data are stored in memory.</p>
@@ -324,7 +325,7 @@ int main(void)
 
             <div class="entire-row flex flex-col md:flex-row">
                 <div class="left-stuff md:w-1/2 md:pr-4 mb-6 md:mb-0">
-                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-900">Memory Visualization Tips</h2>
+                    <h2 class="text-2xl md:text-3xl sansation-bold-italic  mb-4 text-stone-800">Memory Visualization Tips</h2>
                     <div class="bg-teal-300 bg-opacity-20 rounded-xl p-6 content-block">
                         <p class="font-medium mb-2 text-indigo-950">Address Visualization:</p>
                         <p class="mb-4">Think of memory as a long street with numbered houses. Each house (memory location) can hold data, and pointers are just the house numbers.</p>

@@ -30,7 +30,7 @@ async function startDebugging(programName) {
         alert(`Error: ${initialState.error}`);
         return;
     }
-
+	hideError();
     currentSessionId = initialState.session_id;
     currentSourceCode = initialState.source_code;
     appContainer.classList.add('session-active');
@@ -65,6 +65,11 @@ function showError(message) {
     document.getElementById('error-message').style.display = 'block';
 }
 
+function hideError() {
+	document.getElementById('error-message').textContent = "";
+	document.getElementById('error-message').style.display = 'none';
+}
+
 // This is the SIMPLER version of updateUI for our single-pane design
 function updateUI(state) {
     const codeView = document.querySelector('.code-box');
@@ -88,16 +93,16 @@ function updateUI(state) {
     // Update the Stack Table
     const stackTable = document.querySelector('.stack-table');
     let stackHtml = '<h4 class="underline">Stack</h4>';
-    stackHtml += `<div class="border p-2 rounded bg-white text-black">main()</div>`;
+    stackHtml += `<div class="border p-2 rounded bg-white text-black max-w-full overflow-x-auto whitespace-pre">${state.frame_name}()</div>`;
     state.stack.forEach(v => { 
-        stackHtml += `<div class="border p-2 rounded bg-white text-black">${v.name} → ${v.value}</div>`; 
+        stackHtml += `<div class="border p-2 rounded bg-white text-black max-w-full overflow-x-auto whitespace-pre">${v.name} ← ${v.value}</div>`; 
     });
-    stackTable.innerHTML = stackHtml;    
+    stackTable.innerHTML = stackHtml;
     // Update the Heap Table
     const heapTable = document.querySelector('.heap-table');
     let heapHtml = '<h4 class="underline">Heap</h4>';
     for (const address in state.heap) { 
-        heapHtml += `<div class="border p-2 rounded bg-white text-black">${address} : ${state.heap[address]}</div>`;
+        heapHtml += `<div class="border p-2 rounded bg-white text-black max-w-full overflow-x-auto whitespace-pre">${address} : ${state.heap[address]}</div>`;
     }
     heapTable.innerHTML = heapHtml;
 }

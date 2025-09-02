@@ -6,7 +6,6 @@ class Debugger:
     def __init__(self, binary):
         self.gdbmi = GdbController()
         self.binary = binary
-        print("Started GDB: ", self.gdbmi.command)
         # load the binary automatically
         self.exec_debug("load", binary)
 
@@ -22,6 +21,7 @@ class Debugger:
         command_repo = {
             "break main": lambda argg=None: self.gdbmi.write("b main"),
             "breakpoint": lambda argg: self.gdbmi.write(f"-break-insert {self.safe_num(argg)}"),
+            "continue": lambda argg=None: self.gdbmi.write("-exec-continue"),
             "eval": lambda argg: self.gdbmi.write(f"-data-evaluate-expression {shlex.quote(argg)}"),
             "exit": lambda argg=None: self.gdbmi.write("-gdb-exit", read_response=False),
             "load": lambda argg: self.gdbmi.write(f"-file-exec-and-symbols {shlex.quote(argg)}"),
