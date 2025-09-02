@@ -1,6 +1,6 @@
 # [Link to the newer demo video](https://www.reddit.com/r/developersIndia/comments/1n6w0ao/for_a_hackathon_made_a_c_debugger_frontend_in_an/)
 
-## How to use this project
+## How to run this project
 
 Clone this repo, then run this command (make sure that you have Python installed):
 
